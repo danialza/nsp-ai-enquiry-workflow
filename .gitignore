@@ -1,0 +1,17 @@
+.env
+.venv/
+__pycache__/
+*.pyc
+*.pyo
+.DS_Store
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.coverage
+*.log
+.idea/
+.vscode/
+
+# Keep the committed demo output, ignore any other generated outputs.
+output/*.json
+!output/example_output.json

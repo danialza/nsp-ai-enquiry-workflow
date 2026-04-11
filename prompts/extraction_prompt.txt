@@ -1,0 +1,15 @@
+Extract structured data from the customer enquiry below.
+Return only one valid JSON object and follow the required schema exactly.
+
+Customer enquiry email:
+---
+{{email_text}}
+---
+
+Additional guidance:
+- product_type should describe what case is being requested in business terms.
+- dimensions should capture numeric values as strings when available, plus the unit.
+- use_case should summarize operational context (for example: transport type, environment, handling frequency).
+- requirements should be a clean list, not one long sentence.
+- missing_information should be practical follow-up questions needed before final quotation.
+- Do not include any keys outside the required schema.
