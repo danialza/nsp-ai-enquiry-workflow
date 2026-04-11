@@ -1,18 +1,63 @@
 # NSP Cases AI Enquiry Workflow
 
-Practical, GitHub-ready mini project for a hiring task: convert unstructured customer enquiry emails into structured, business-usable JSON for downstream quoting and operations workflows.
+This is a small, practical prototype for a hiring task.
+The goal is simple: take a customer enquiry email for a custom flight case, extract the key details with AI, and produce clean JSON that a sales or operations team can actually use.
 
-## Problem This Solves
-NSP Cases receives custom flight case enquiries by email. Important details (dimensions, use case, requirements, attachment mentions) are often buried in free text. This prototype standardizes that data in seconds so teams can quote and route work faster.
+## At A Glance
+- Input: one enquiry email (`sample_email.txt`)
+- Processing: prompt-guided AI extraction
+- Output: structured JSON (`output/example_output.json`)
+- Run mode: local Python app (no paid workflow platform required)
 
-## What The Prototype Does
-- Reads a sample enquiry email from `sample_email.txt`
-- Sends the email text to an LLM through an isolated provider function
-- Extracts required fields into a strict JSON schema
-- Prints the result in a readable format
-- Saves output to `output/example_output.json`
+## Workflow Diagram
+```mermaid
+flowchart LR
+    A["Incoming Enquiry Email"] --> B["Load Email Text<br/>(sample_email.txt)"]
+    B --> C["LLM Extraction<br/>(system + extraction prompts)"]
+    C --> D["Structured JSON Result"]
+    D --> E{"Missing Info or<br/>Low Confidence?"}
+    E -- "No" --> F["Save JSON<br/>(output/example_output.json)"]
+    F --> G["Send to ERP/CRM/MRP Intake"]
+    E -- "Yes" --> H["Human Review<br/>& Corrections"]
+    H --> G
 
-No paid automation platform is required for the core demo. It runs locally with Python.
+    classDef intake fill:#E3F2FD,stroke:#1E88E5,color:#0D47A1,stroke-width:2px;
+    classDef ai fill:#F3E5F5,stroke:#8E24AA,color:#4A148C,stroke-width:2px;
+    classDef data fill:#E8F5E9,stroke:#2E7D32,color:#1B5E20,stroke-width:2px;
+    classDef decision fill:#FFF8E1,stroke:#F9A825,color:#E65100,stroke-width:2px;
+    classDef review fill:#FFEBEE,stroke:#C62828,color:#B71C1C,stroke-width:2px;
+    classDef integration fill:#ECEFF1,stroke:#546E7A,color:#263238,stroke-width:2px;
+
+    class A,B intake;
+    class C ai;
+    class D,F data;
+    class E decision;
+    class H review;
+    class G integration;
+```
+
+## Why This Exists
+In real quoting workflows, important information often arrives as unstructured text.
+That creates friction:
+- details get missed
+- follow-up takes longer
+- handoff to operations is inconsistent
+
+This prototype solves that first mile by turning free text into a predictable schema.
+
+## What The App Extracts
+The script returns these fields:
+- `product_type`
+- `dimensions.length`
+- `dimensions.width`
+- `dimensions.height`
+- `dimensions.unit`
+- `use_case`
+- `requirements`
+- `attachments_present`
+- `summary`
+- `missing_information`
+- `confidence`
 
 ## Output Schema
 ```json
@@ -43,7 +88,7 @@ source .venv/bin/activate
 ```bash
 pip install -r requirements.txt
 ```
-3. Configure environment:
+3. Create your env file:
 ```bash
 cp .env.example .env
 ```
@@ -51,41 +96,18 @@ cp .env.example .env
 ```env
 OPENAI_API_KEY=your_real_key_here
 ```
-5. Run:
+5. Run the app:
 ```bash
 python main.py
 ```
 
-## Repo Structure
-```text
-.
-|-- .env.example
-|-- .gitignore
-|-- README.md
-|-- docs
-|   |-- loom_script.md
-|   |-- make_or_n8n_option.md
-|   `-- workflow_overview.md
-|-- main.py
-|-- output
-|   `-- example_output.json
-|-- prompts
-|   |-- extraction_prompt.txt
-|   `-- system_prompt.txt
-|-- requirements.txt
-`-- sample_email.txt
-```
-
-## Design Choices
-- **Simple and interview-appropriate:** one clear entry point (`main.py`) and no unnecessary framework overhead.
-- **Prompt-driven extraction:** prompt files are externalized in `prompts/` for easy iteration.
-- **Provider abstraction:** LLM call path is isolated so Claude/Gemini can be added later without redesigning the app.
-- **Schema normalization:** output is validated/normalized into predictable fields for downstream system reliability.
-- **Operationally realistic:** includes missing-information detection and confidence scoring for human review workflows.
+Expected behavior:
+- JSON is printed in the terminal
+- JSON is saved to `output/example_output.json`
 
 ## Sample Input / Output
-- Input: `sample_email.txt`
-- Output: `output/example_output.json`
+- Input file: `sample_email.txt`
+- Output file: `output/example_output.json`
 
 Input excerpt:
 ```text
@@ -114,24 +136,59 @@ Output excerpt:
 }
 ```
 
-## How This Scales
-This can evolve into a production intake flow:
-1. Email ingestion captures new enquiries.
-2. AI extraction standardizes free-text into structured JSON.
-3. Rule checks and optional human review handle low confidence or missing data.
-4. Structured records are pushed into CRM/ERP/MRP quoting and planning workflows.
+## Design Decisions
+- Keep architecture simple and interview-appropriate (`main.py` as single entry point)
+- Keep prompts in files (`prompts/`) so tuning does not require code edits
+- Isolate the provider call so Claude/Gemini/OpenAI can be swapped later
+- Normalize model output into a stable JSON shape for downstream reliability
+- Include missing-info detection and confidence to support human review
+
+## Project Structure
+```text
+.
+|-- .env.example
+|-- .gitignore
+|-- README.md
+|-- docs
+|   |-- loom_script.md
+|   |-- make_or_n8n_option.md
+|   `-- workflow_overview.md
+|-- main.py
+|-- output
+|   `-- example_output.json
+|-- prompts
+|   |-- extraction_prompt.txt
+|   `-- system_prompt.txt
+|-- requirements.txt
+`-- sample_email.txt
+```
+
+## How This Can Scale
+1. Email intake captures new enquiries
+2. AI extraction converts free text to structured JSON
+3. Business rules + optional human review handle low-confidence cases
+4. Approved data flows into CRM/ERP/MRP quoting and planning
+
+## Optional Automation Layer (Make / n8n)
+This repo runs locally by itself.
+If needed later, orchestration can be added with Make or n8n for:
+- email trigger
+- LLM call
+- JSON parsing
+- write to CRM/ERP table
+- review routing for low-confidence responses
 
 See:
 - `docs/workflow_overview.md`
 - `docs/make_or_n8n_option.md`
 - `docs/loom_script.md`
 
-## Future ERP/MRP Integration
-- Create enquiry records with structured technical/commercial fields
+## Future ERP/MRP Integration Ideas
+- Create enquiry records with structured technical and commercial fields
 - Trigger quote-preparation tasks for engineering/sales
-- Route missing information back to account managers for follow-up
+- Route missing information back for customer follow-up
 - Feed approved data into planning/BOM workflows
 
 ## Notes
-- This is a prototype for interview demonstration.
-- API usage may incur provider costs.
+- This is a prototype intended for interview demonstration
+- API usage may incur costs, depending on provider/account
