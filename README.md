@@ -3,6 +3,9 @@
 This is a small, practical prototype for a hiring task.
 The goal is simple: take a customer enquiry email for a custom flight case, extract the key details with AI, and produce clean JSON that a sales or operations team can actually use.
 
+## Demo Video
+[Watch the demo walkthrough](assets/demo-walkthrough.mp4)
+
 ## At A Glance
 - Input: one enquiry email (`sample_email.txt`)
 - Processing: prompt-guided AI extraction
