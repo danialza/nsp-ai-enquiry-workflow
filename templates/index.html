@@ -1,0 +1,109 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>NSP Enquiry Extractor</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}" />
+  </head>
+  <body>
+    <main class="page">
+      <section class="hero">
+        <p class="eyebrow">NSP Cases</p>
+        <h1>Enquiry Extractor</h1>
+        <p class="subtext">
+          Paste a customer enquiry email. The system extracts dimensions, use case,
+          requirements, summary, and confidence as structured JSON.
+        </p>
+      </section>
+
+      <section class="grid">
+        <article class="card">
+          <div class="card-header">
+            <h2>Input</h2>
+            <span class="hint">Plain text email</span>
+          </div>
+          <form id="extractForm">
+            <label for="emailInput" class="label">Customer enquiry</label>
+            <textarea id="emailInput" name="emailInput" required>{{ sample_email }}</textarea>
+            <div class="actions">
+              <button type="submit" id="runBtn">Extract JSON</button>
+              <button type="button" class="ghost" id="clearBtn">Clear</button>
+            </div>
+          </form>
+        </article>
+
+        <article class="card">
+          <div class="card-header">
+            <h2>Output</h2>
+            <span class="hint" id="statusBadge">Ready</span>
+          </div>
+          <pre id="outputBox">{
+  "status": "Waiting for input..."
+}</pre>
+        </article>
+      </section>
+    </main>
+
+    <script>
+      const form = document.getElementById("extractForm");
+      const runBtn = document.getElementById("runBtn");
+      const clearBtn = document.getElementById("clearBtn");
+      const emailInput = document.getElementById("emailInput");
+      const outputBox = document.getElementById("outputBox");
+      const statusBadge = document.getElementById("statusBadge");
+
+      function setStatus(text, kind) {
+        statusBadge.textContent = text;
+        statusBadge.dataset.kind = kind;
+      }
+
+      clearBtn.addEventListener("click", () => {
+        emailInput.value = "";
+        outputBox.textContent = '{\n  "status": "Input cleared."\n}';
+        setStatus("Ready", "ready");
+      });
+
+      form.addEventListener("submit", async (event) => {
+        event.preventDefault();
+        const emailText = emailInput.value.trim();
+        if (!emailText) {
+          outputBox.textContent = '{\n  "error": "Please paste an enquiry email first."\n}';
+          setStatus("Input missing", "error");
+          return;
+        }
+
+        runBtn.disabled = true;
+        setStatus("Extracting...", "loading");
+        outputBox.textContent = '{\n  "status": "Calling AI model..."\n}';
+
+        try {
+          const response = await fetch("/api/extract", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ email_text: emailText }),
+          });
+
+          const data = await response.json();
+          if (!response.ok) {
+            outputBox.textContent = JSON.stringify(data, null, 2);
+            setStatus("Error", "error");
+            return;
+          }
+
+          outputBox.textContent = JSON.stringify(data, null, 2);
+          setStatus("Done", "success");
+        } catch (error) {
+          outputBox.textContent = JSON.stringify(
+            { error: "Network or server issue.", detail: String(error) },
+            null,
+            2
+          );
+          setStatus("Error", "error");
+        } finally {
+          runBtn.disabled = false;
+        }
+      });
+    </script>
+  </body>
+</html>

@@ -6,10 +6,14 @@ The goal is simple: take a customer enquiry email for a custom flight case, extr
 ## Demo Video
 [Watch the demo walkthrough](assets/demo-walkthrough.mp4)
 
+## UI Screenshot
+![NSP Enquiry Extractor UI](assets/frontend-screenshot.png)
+
 ## At A Glance
 - Input: one enquiry email (`sample_email.txt`)
 - Processing: prompt-guided AI extraction
 - Output: structured JSON (`output/example_output.json`)
+- Frontend: lightweight local web UI (`app.py`)
 - Run mode: local Python app (no paid workflow platform required)
 
 ## Workflow Diagram
@@ -99,14 +103,28 @@ cp .env.example .env
 ```env
 OPENAI_API_KEY=your_real_key_here
 ```
-5. Run the app:
+5. Run CLI mode:
 ```bash
 python main.py
 ```
 
+6. Run web UI mode:
+```bash
+python app.py
+```
+Then open: `http://127.0.0.1:5000`
+
 Expected behavior:
 - JSON is printed in the terminal
 - JSON is saved to `output/example_output.json`
+
+## Frontend (Local UI)
+The frontend lets users paste enquiry text and instantly see structured JSON output.
+
+- Input panel: paste customer email text
+- Extract button: calls `POST /api/extract`
+- Output panel: shows formatted JSON response
+- The same response is also saved to `output/example_output.json`
 
 ## Sample Input / Output
 - Input file: `sample_email.txt`
@@ -154,6 +172,7 @@ Output excerpt:
 |-- README.md
 |-- assets
 |   `-- demo-walkthrough.mp4
+|-- app.py
 |-- main.py
 |-- output
 |   `-- example_output.json
@@ -161,6 +180,10 @@ Output excerpt:
 |   |-- extraction_prompt.txt
 |   `-- system_prompt.txt
 |-- requirements.txt
+|-- static
+|   `-- styles.css
+|-- templates
+|   `-- index.html
 `-- sample_email.txt
 ```
 

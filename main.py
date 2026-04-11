@@ -243,19 +243,33 @@ def resolve_output_path() -> Path:
     return path if path.is_absolute() else ROOT_DIR / path
 
 
-def run() -> dict[str, Any]:
+def extract_from_email_text(
+    email_text: str, output_path: Path | None = None
+) -> dict[str, Any]:
+    """Extract structured enquiry data from raw email text."""
     load_dotenv()
+    if not email_text or not email_text.strip():
+        raise ValueError("Email text is empty. Please provide enquiry content.")
 
     config = read_provider_config()
-    email_text = load_text_file(SAMPLE_EMAIL_PATH)
     system_prompt = load_text_file(SYSTEM_PROMPT_PATH)
     extraction_prompt = load_text_file(EXTRACTION_PROMPT_PATH)
-    output_path = resolve_output_path()
 
     messages = build_messages(system_prompt, extraction_prompt, email_text)
     raw_response = call_llm(messages, config)
     result = parse_model_response(raw_response)
-    write_output(result, output_path)
+
+    if output_path is not None:
+        write_output(result, output_path)
+
+    return result
+
+
+def run() -> dict[str, Any]:
+    load_dotenv()
+    email_text = load_text_file(SAMPLE_EMAIL_PATH)
+    output_path = resolve_output_path()
+    result = extract_from_email_text(email_text, output_path=output_path)
 
     print(json.dumps(result, indent=2))
     print(f"\nSaved structured output to: {output_path}")

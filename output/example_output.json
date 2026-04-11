@@ -14,12 +14,13 @@
     "wheels",
     "pull handle",
     "laser-cut foam insert with labelled compartments",
-    "matte black finish",
+    "matte black finish with metal logo plate",
     "initial order quantity of 8 units"
   ],
   "attachments_present": true,
-  "summary": "Customer requires a custom flight case for a thermal camera kit with specific dimensions and features for transport in offshore environments. They have provided sketches and photos for reference.",
+  "summary": "Customer requires a custom flight case for a thermal camera kit, with specific dimensions and features for frequent transport. They have provided sketches and photos for reference.",
   "missing_information": [
+    "Exact internal dimensions for foam insert",
     "Lead time for production",
     "Pricing details"
   ],
