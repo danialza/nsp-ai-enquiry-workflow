@@ -152,10 +152,8 @@ Output excerpt:
 |-- .env.example
 |-- .gitignore
 |-- README.md
-|-- docs
-|   |-- loom_script.md
-|   |-- make_or_n8n_option.md
-|   `-- workflow_overview.md
+|-- assets
+|   `-- demo-walkthrough.mp4
 |-- main.py
 |-- output
 |   `-- example_output.json
@@ -180,11 +178,6 @@ If needed later, orchestration can be added with Make or n8n for:
 - JSON parsing
 - write to CRM/ERP table
 - review routing for low-confidence responses
-
-See:
-- `docs/workflow_overview.md`
-- `docs/make_or_n8n_option.md`
-- `docs/loom_script.md`
 
 ## Future ERP/MRP Integration Ideas
 - Create enquiry records with structured technical and commercial fields
