@@ -2,7 +2,6 @@
 
 Practical AI pipeline that converts unstructured customer enquiry emails into structured JSON for quote preparation and downstream operations.
 
-## Demo
 ## Demo Video
 [Watch the demo walkthrough](assets/demo-walkthrough.mp4)
 
