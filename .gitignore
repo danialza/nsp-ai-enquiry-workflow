@@ -11,6 +11,7 @@ __pycache__/
 *.log
 .idea/
 .vscode/
+evaluation/results/*.json
 
 # Keep the committed demo output, ignore any other generated outputs.
 output/*.json

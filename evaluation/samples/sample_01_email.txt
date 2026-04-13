@@ -1,0 +1,21 @@
+Subject: Quote Request - Custom Flight Case for Thermal Camera Kit
+
+Hi NSP Cases team,
+
+We are preparing field inspection units for offshore wind turbine maintenance and need a custom flight case for one thermal imaging kit.
+
+Main details:
+- Equipment to hold: 1x FLIR T865 camera body, 3 lenses, 2 battery chargers, cabling, and small accessories.
+- Intended use: weekly transport between our Aberdeen office and offshore vessels, including frequent loading/unloading and occasional air freight.
+- Target external dimensions: 620 mm (L) x 420 mm (W) x 280 mm (H). If needed, +/-10 mm tolerance is acceptable.
+- Case must be waterproof, shock-resistant, and suitable for ATA-style transit.
+- Please include wheels and a pull handle, as packed weight can reach around 23 kg.
+- We need a laser-cut foam insert with labelled compartments for each item.
+- Finish preference: matte black with a small metal logo plate on the lid.
+- Initial order quantity: 8 units.
+
+I have attached:
+1) a simple internal layout sketch (PDF)
+2) one reference photo of our current case setup (JPG)
+
+Could you also advise indicative lead time and pricing?

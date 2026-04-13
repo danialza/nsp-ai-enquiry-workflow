@@ -1,0 +1,9 @@
+.git
+.gitignore
+.venv
+__pycache__
+*.pyc
+.DS_Store
+.env
+output/*.json
+!output/example_output.json

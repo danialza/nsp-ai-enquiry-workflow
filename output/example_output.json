@@ -1,28 +1,27 @@
 {
-  "product_type": "Custom flight case for thermal camera kit",
+  "product_type": "Custom shock-resistant flight case for thermal camera inspection kit",
   "dimensions": {
     "length": "620",
     "width": "420",
     "height": "280",
     "unit": "mm"
   },
-  "use_case": "Weekly transport between Aberdeen office and offshore vessels, including frequent loading/unloading and occasional air freight.",
+  "use_case": "Weekly transport of a thermal imaging kit between Aberdeen and offshore vessels, with frequent handling and occasional air freight.",
   "requirements": [
-    "waterproof",
-    "shock-resistant",
-    "ATA-style transit",
-    "wheels",
-    "pull handle",
-    "laser-cut foam insert with labelled compartments",
-    "matte black finish with metal logo plate",
-    "initial order quantity of 8 units"
+    "Waterproof and shock-resistant case suitable for ATA-style transit",
+    "Wheels and pull handle for around 23 kg packed weight",
+    "Laser-cut foam insert with labelled compartments",
+    "Matte black finish with metal logo plate",
+    "Capacity for FLIR T865 camera body, 3 lenses, 2 battery chargers, cabling, and accessories",
+    "Initial quantity: 8 units"
   ],
   "attachments_present": true,
-  "summary": "Customer requires a custom flight case for a thermal camera kit, with specific dimensions and features for frequent transport. They have provided sketches and photos for reference.",
+  "summary": "Customer requests a custom flight case for a thermal camera kit used in offshore inspection operations. The case should be durable for frequent transport, include protective custom foam, and support heavy handling with wheels and a pull handle. They also request matte black branding and have provided reference attachments.",
   "missing_information": [
-    "Exact internal dimensions for foam insert",
-    "Lead time for production",
-    "Pricing details"
+    "Required delivery date",
+    "Delivery location/postcode for freight costing",
+    "Brand artwork file/specification for logo plate",
+    "Any required certification level beyond ATA-style suitability"
   ],
-  "confidence": 0.95
+  "confidence": 0.93
 }

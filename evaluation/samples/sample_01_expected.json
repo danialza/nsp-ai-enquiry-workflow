@@ -1,0 +1,28 @@
+{
+  "product_type": "custom flight case for thermal camera kit",
+  "dimensions": {
+    "length": "620",
+    "width": "420",
+    "height": "280",
+    "unit": "mm"
+  },
+  "use_case": "Weekly transport between office and offshore vessels with frequent handling and occasional air freight.",
+  "requirements": [
+    "waterproof",
+    "shock-resistant",
+    "ATA-style transit",
+    "wheels",
+    "pull handle",
+    "laser-cut foam insert with labelled compartments",
+    "matte black finish with metal logo plate",
+    "initial order quantity of 8 units"
+  ],
+  "attachments_present": true,
+  "summary": "Customer requests a durable custom flight case for a thermal imaging kit used in offshore operations.",
+  "missing_information": [
+    "Required lead time",
+    "Budget or target price",
+    "Delivery destination"
+  ],
+  "confidence": 0.9
+}

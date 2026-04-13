@@ -1,0 +1,9 @@
+services:
+  nsp-enquiry-ui:
+    build: .
+    container_name: nsp-enquiry-ui
+    env_file:
+      - .env
+    ports:
+      - "8000:8000"
+    command: uvicorn app:app --host 0.0.0.0 --port 8000
